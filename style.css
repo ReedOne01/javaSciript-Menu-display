@@ -16,6 +16,7 @@ section {
 }
 .menuItem {
   display: flex;
+  flex-wrap: nowrap;
   width: 45%;
   gap: 20px;
   justify-content: space-between;
@@ -36,6 +37,25 @@ header .underline1 {
   height: 3px;
   width: 60%;
   background: gold;
+}
+.btnContainer {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+.filter-btn {
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid gold;
+  cursor: pointer;
+  /* color: rgb(255, 217, 0); */
+  background-color: transparent;
+  font-size: 16px;
+  transition: all 0.5s ease-in-out;
+}
+.filter-btn:hover {
+  color: white;
+  background-color: gold;
 }
 .photoContainer {
   border: 3px solid gold;

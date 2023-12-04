@@ -1,7 +1,7 @@
 const menu = [
   {
     id: 1,
-    title: "Senegal Style",
+    title: "Ginni",
     category: "Native",
     price: 8.99,
     img: "./images/img1.jpg",
@@ -9,23 +9,23 @@ const menu = [
   },
   {
     id: 2,
-    title: "Senegal Style",
-    category: "Native",
+    title: "Abgada Style",
+    category: "Yoruba",
     price: 8.99,
     img: "./images/img2.jpg",
     desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit Nemo    suscipit itaque omnis explicabo laudantium laboriosam distinctiooptio",
   },
   {
     id: 3,
-    title: "Senegal Style",
-    category: "Native",
+    title: "Shirt & Trouser",
+    category: "English",
     price: 8.99,
     img: "./images/img3.jpg",
     desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit Nemo    suscipit itaque omnis explicabo laudantium laboriosam distinctiooptio",
   },
   {
     id: 4,
-    title: "Senegal Style",
+    title: "White Ginni",
     category: "Native",
     price: 8.99,
     img: "./images/img4.jpg",
@@ -33,29 +33,40 @@ const menu = [
   },
   {
     id: 5,
-    title: "Senegal Style",
-    category: "Native",
+    title: "White Style",
+    category: "English",
     price: 8.99,
     img: "./images/img4.jpg",
     desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit Nemo    suscipit itaque omnis explicabo laudantium laboriosam distinctiooptio",
   },
   {
     id: 6,
-    title: "Senegal Style",
+    title: "Native Style",
     category: "Native",
     price: 8.99,
     img: "./images/img6.jpg",
+    desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit Nemo    suscipit itaque omnis explicabo laudantium laboriosam distinctiooptio",
+  },
+  {
+    id: 7,
+    title: "Igbo Style",
+    category: "Igbo",
+    price: 8.99,
+    img: "./images/img2.jpg",
     desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit Nemo    suscipit itaque omnis explicabo laudantium laboriosam distinctiooptio",
   },
 ];
 
 const menuItem = document.querySelector(".menuItem");
 const singleItem = document.querySelector(".singleItem");
+const menuBtns = document.querySelector(".btnContainer");
 
 window.addEventListener("DOMContentLoaded", () => {
   displayMenuItems(menu);
+  displayMenuBtns();
 });
 
+// to make the item dynamic
 function displayMenuItems(menuItem) {
   let displayMenu = menuItem.map((item) => {
     // console.log(item);
@@ -79,4 +90,44 @@ function displayMenuItems(menuItem) {
   });
   displayMenu = displayMenu.join(" ");
   singleItem.innerHTML = displayMenu;
+}
+
+// to make the buttons dynamic
+const categories = menu.reduce(
+  (values, item) => {
+    if (!values.includes(item.category)) {
+      values.push(item.category);
+    }
+    return values;
+  },
+  ["all"]
+);
+const categoryBtns = categories.map((category) => {
+  console.log(category);
+  return `
+  <button class="filter-btn" type="button" data-id=${category}>
+  ${category}
+</button>`;
+});
+menuBtns.innerHTML = categoryBtns;
+
+function displayMenuBtns() {
+  const filterBtns = document.querySelectorAll(".filter-btn");
+
+  filterBtns.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      const category = e.currentTarget.dataset.id;
+      const menuCategory = menu.filter(function (menuItems) {
+        if (menuItems.category === category) {
+          return menuItems;
+        }
+        // console.log(menuItems.category, category);
+      });
+      if (category === "all") {
+        displayMenuItems(menu);
+      } else {
+        displayMenuItems(menuCategory);
+      }
+    });
+  });
 }
